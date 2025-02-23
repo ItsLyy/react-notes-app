@@ -1,0 +1,7 @@
+.btn-primary {
+  background: linear-gradient(to top right, var(--color-300), #fcc546);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  color: var(--color-200);
+  text-wrap: nowrap;
+}

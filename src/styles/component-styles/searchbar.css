@@ -1,0 +1,33 @@
+.search-bar {
+  background-color: var(--color-200);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 0.5rem;
+  width: 12rem;
+  height: fit-content;
+}
+
+.search-bar input {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-size: 1em;
+  width: 100%;
+  padding: 0.3rem 0.3rem;
+}
+
+.search-bar__key {
+  font-size: small;
+  background-color: #3f4a5a;
+  border-radius: 4px;
+  font-weight: 600;
+  padding: 0.2rem 0.4rem;
+  text-wrap: nowrap;
+}
+
+@media screen and (max-width: 700px) {
+  .search-bar__key {
+    display: none;
+  }
+}
