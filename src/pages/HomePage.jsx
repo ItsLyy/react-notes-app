@@ -13,10 +13,8 @@ class HomePage extends React.Component {
   }
 
   onArchiveHandler(id) {
-    console.log(id);
     archiveNote(id);
     this.setState({ notes: getActiveNotes() });
-    console.log(getActiveNotes());
   }
 
   render() {

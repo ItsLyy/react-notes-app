@@ -6,6 +6,7 @@
   padding: 0.3rem 0.5rem;
   width: 12rem;
   height: fit-content;
+  position: relative;
 }
 
 .search-bar input {
@@ -24,6 +25,37 @@
   font-weight: 600;
   padding: 0.2rem 0.4rem;
   text-wrap: nowrap;
+}
+
+.result__container {
+  position: absolute;
+  right: 0;
+  top: 100%;
+
+  background-color: var(--color-100);
+  border: 1px solid var(--color-200);
+  border-radius: 8px;
+
+  box-shadow: 0 0 5px 1px #00000010;
+  margin: 1rem 0;
+  padding: 0 0.5rem;
+
+  width: 100%;
+}
+
+.result__item {
+  border-bottom: 1px solid var(--color-200);
+}
+
+.result__link {
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+.result__list {
+  list-style: none;
 }
 
 @media screen and (max-width: 700px) {

@@ -39,6 +39,10 @@ body {
   box-sizing: border-box;
 }
 
+.search-found {
+  margin-bottom: 1rem;
+}
+
 .not-found,
 .note-empty {
   display: flex;
@@ -65,8 +69,15 @@ section {
   box-sizing: border-box;
 }
 
-#home {
+#home,
+#notes-create,
+#notes-detail {
   padding: 8rem 0 0;
+}
+
+#notes-detail--not-found {
+  height: 100svh;
+  display: flex;
 }
 
 #archived {
@@ -76,4 +87,66 @@ section {
 
 #archived .container {
   display: flex;
+}
+
+#notes-create .input__title {
+  outline: none;
+  background: transparent;
+  border: none;
+  font-size: 2em;
+  font-family: inherit;
+  margin-bottom: 1rem;
+}
+
+#notes-create .input__body {
+  outline: none;
+  opacity: 80%;
+  font-size: 1.2em;
+  min-height: 20rem;
+}
+
+#notes-create .input__body:empty:not(:focus):before {
+  content: attr(data-placeholder);
+  opacity: 40%;
+}
+
+#notes-detail header {
+  margin-bottom: 1rem;
+}
+
+#notes-detail .notes__title {
+  font-size: 2em;
+  font-weight: 500;
+}
+
+#notes-detail .notes__createdAt {
+  font-size: 0.9em;
+  opacity: 60%;
+}
+
+#notes-detail .notes__body {
+  opacity: 80%;
+}
+
+#notes-create .notes__action,
+#notes-detail .notes__action {
+  display: flex;
+  position: fixed;
+  margin: 4rem;
+  bottom: 0;
+  right: 0;
+  gap: 0.5rem;
+}
+
+#notes-create .notes__action button,
+#notes-detail .notes__action button {
+  padding: 0.6rem;
+  width: 2.8rem;
+  height: 2.8rem;
+}
+
+#notes-create .notes__action button svg,
+#notes-detail .notes__action button svg {
+  width: 100%;
+  height: 100%;
 }

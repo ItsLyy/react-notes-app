@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import parser from "html-react-parser";
 import Bookmark from "./icons/Bookmark";
 import BookmarkSlash from "./icons/BookmarkSlash";
 
@@ -17,7 +18,7 @@ function Card({
         <h2 className="card__title">{title}</h2>
         <span className="card__date">{createdAt}</span>
       </header>
-      <p className="card__description">{description}</p>
+      <p className="card__description">{parser(description)}</p>
       <div className="card__action">
         <button
           onClick={() => archivedHandler(id)}

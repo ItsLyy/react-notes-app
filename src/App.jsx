@@ -5,6 +5,7 @@ import NoteAdd from "./pages/notes/NoteAdd";
 import NoteDetail from "./pages/notes/NoteDetail";
 import NotFound from "./pages/NotFound";
 import NotesArchivedPage from "./pages/notes/NotesArchivedPage";
+import NoteSearchPage from "./pages/notes/NoteSearchPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <DefaultLayout>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/notes/search" element={<NoteSearchPage />} />
           <Route path="/notes/create" element={<NoteAdd />} />
           <Route path="/notes/archived" element={<NotesArchivedPage />} />
           <Route path="/notes/:id" element={<NoteDetail />} />

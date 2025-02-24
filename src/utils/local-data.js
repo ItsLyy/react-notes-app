@@ -86,7 +86,6 @@ function archiveNote(id) {
     }
     return note;
   });
-  console.log(notes);
 }
 
 function unarchiveNote(id) {

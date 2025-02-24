@@ -13,7 +13,6 @@ class NotesArchivedPage extends React.Component {
   }
 
   onUnarchiveHandler(id) {
-    console.log("hello");
     unarchiveNote(id);
     this.setState({ notes: getArchivedNotes() });
   }
