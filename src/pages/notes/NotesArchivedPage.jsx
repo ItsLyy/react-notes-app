@@ -1,27 +1,26 @@
 import React from "react";
-import NotesEmpty from "../components/NotesEmpty";
-import { archiveNote, getActiveNotes } from "../utils/local-data";
-import Card from "../components/Card";
+import NotesEmpty from "../../components/NotesEmpty";
+import Card from "../../components/Card";
+import { getArchivedNotes, unarchiveNote } from "../../utils/local-data";
 
-class HomePage extends React.Component {
+class NotesArchivedPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: getActiveNotes(),
+      notes: getArchivedNotes(),
     };
-    this.onArchiveHandler = this.onArchiveHandler.bind(this);
+    this.onUnarchiveHandler = this.onUnarchiveHandler.bind(this);
   }
 
-  onArchiveHandler(id) {
-    console.log(id);
-    archiveNote(id);
-    this.setState({ notes: getActiveNotes() });
-    console.log(getActiveNotes());
+  onUnarchiveHandler(id) {
+    console.log("hello");
+    unarchiveNote(id);
+    this.setState({ notes: getArchivedNotes() });
   }
 
   render() {
     return (
-      <section id="home">
+      <section id="archived">
         <div className="container">
           {this.state.notes.length > 0 ? (
             <div className="card__group">
@@ -33,7 +32,7 @@ class HomePage extends React.Component {
                   description={note.body}
                   createdAt={note.createdAt}
                   archived={note.archived}
-                  archivedHandler={this.onArchiveHandler}
+                  archivedHandler={this.onUnarchiveHandler}
                 />
               ))}
             </div>
@@ -46,4 +45,4 @@ class HomePage extends React.Component {
   }
 }
 
-export default HomePage;
+export default NotesArchivedPage;

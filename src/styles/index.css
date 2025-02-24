@@ -4,6 +4,7 @@
 @import url("./component-styles/navbar.css");
 @import url("./component-styles/searchbar.css");
 @import url("./component-styles/button.css");
+@import url("./component-styles/card.css");
 
 :root {
   --color-100: #222831;
@@ -19,6 +20,11 @@
   text-decoration: none;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   background-color: var(--color-100);
   color: var(--color-400);
@@ -29,21 +35,45 @@ body {
   max-width: 1000px;
   width: 100%;
   margin: 0 auto;
+  padding: 0.5rem;
+  box-sizing: border-box;
 }
 
-.not-found {
+.not-found,
+.note-empty {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100svh;
+  height: 100%;
+  width: 100%;
 }
 
-.not-found span {
+.not-found span,
+.note-empty span {
   opacity: 40%;
 }
 
 .not-found span:first-child {
   font-size: 4em;
   font-weight: 600;
+}
+
+section {
+  min-height: 100svh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#home {
+  padding: 8rem 0 0;
+}
+
+#archived {
+  padding: 8rem 0 0;
+  display: flex;
+}
+
+#archived .container {
+  display: flex;
 }
