@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import parser from "html-react-parser";
 import Bookmark from "./icons/Bookmark";
 import BookmarkSlash from "./icons/BookmarkSlash";
+import { showFormattedDate } from "../utils";
 
 function Card({
   id,
@@ -16,7 +17,7 @@ function Card({
     <article className="card">
       <header className="card__header">
         <h2 className="card__title">{title}</h2>
-        <span className="card__date">{createdAt}</span>
+        <span className="card__date">{showFormattedDate(createdAt)}</span>
       </header>
       <p className="card__description">{parser(description)}</p>
       <div className="card__action">

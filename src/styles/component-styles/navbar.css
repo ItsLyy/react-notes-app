@@ -22,7 +22,7 @@
 
   background-color: #2b323d60;
   backdrop-filter: blur(5px);
-  border-radius: 8px;
+  border-radius: 8px 0 8px 8px;
 
   padding: 0.8rem 2rem;
   box-sizing: border-box;
@@ -86,4 +86,63 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.nav__setting {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  background-color: #2b323d60;
+  padding: 0.4rem 1rem 0.3rem 2rem;
+  border-radius: 16px 8px 0 0;
+  height: 1.25rem;
+  overflow: hidden;
+}
+
+.switch-setting {
+  overflow: hidden;
+  height: 100%;
+}
+
+.switch-button {
+  background-color: transparent;
+  border: none;
+  font-weight: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0;
+  cursor: pointer;
+}
+
+.switch-button div {
+  position: relative;
+  top: 0;
+  transition: all 300ms ease-in-out;
+}
+
+.switch-setting span {
+  display: block;
+}
+
+.switch-setting.second div {
+  top: -21px;
+}
+
+.switch-setting svg {
+  display: block;
+  padding: 0.16rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+.nav__setting .logout {
+  color: rgb(212, 61, 61);
+  padding: 0;
+  background-color: transparent;
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
 }

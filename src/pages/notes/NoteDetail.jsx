@@ -1,21 +1,21 @@
 import parser from "html-react-parser";
-import { useNavigate, useParams } from "react-router-dom";
-import {
-  archiveNote,
-  deleteNote,
-  getNote,
-  unarchiveNote,
-} from "../../utils/local-data";
+import { useParams } from "react-router-dom";
 import NotesEmpty from "../../components/NotesEmpty";
 import BookmarkSlash from "../../components/icons/BookmarkSlash";
 import Bookmark from "../../components/icons/Bookmark";
 import Trash from "../../components/icons/Trash";
-import { useState } from "react";
+import { showFormattedDate } from "../../utils";
+import useNotesDetail from "../../hooks/useNotesDetail";
+import { useContext } from "react";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 function NoteDetail() {
   const { id } = useParams();
-  const [notes, setNotes] = useState(getNote(id));
-  const navigate = useNavigate();
+  const { language } = useContext(LanguageContext);
+  const [notes, onArchiveHandler, onDeleteHandler] = useNotesDetail({
+    id,
+    lang: language,
+  });
 
   if (!notes) {
     return (
@@ -25,28 +25,14 @@ function NoteDetail() {
     );
   }
 
-  function onArchiveHandler(id) {
-    if (notes.archived) {
-      unarchiveNote(id);
-    } else {
-      archiveNote(id);
-    }
-    setNotes(getNote(id));
-  }
-
-  function onDeleteHandler(id) {
-    if (confirm("Are you sure?")) {
-      deleteNote(id);
-      navigate("/");
-    }
-  }
-
   return (
     <section id="notes-detail">
       <div className="container">
         <header>
           <h1 className="notes__title">{notes.title}</h1>
-          <span className="notes__createdAt">{notes.createdAt}</span>
+          <span className="notes__createdAt">
+            {showFormattedDate(notes.createdAt)}
+          </span>
         </header>
         <div className="notes__body">{parser(notes.body)}</div>
       </div>

@@ -1,12 +1,8 @@
-import React, { useState } from "react";
-import {
-  archiveNote,
-  getAllNotes,
-  unarchiveNote,
-} from "../../utils/local-data";
+import React from "react";
 import Card from "../../components/Card";
 import NotesEmpty from "../../components/NotesEmpty";
 import { useSearchParams } from "react-router-dom";
+import useSearchNotes from "../../hooks/useSearchNotes";
 
 class NoteSearchPage extends React.Component {
   constructor(props) {
@@ -23,17 +19,10 @@ class NoteSearchPage extends React.Component {
 }
 
 const CardContainer = () => {
-  const [notes, setNotes] = useState(getAllNotes());
+  const { notes, onArchiveHandler } = useSearchNotes();
   const [search] = useSearchParams();
 
-  function onArchiveHandler(id) {
-    if (notes.archived) {
-      unarchiveNote(id);
-    } else {
-      archiveNote(id);
-    }
-    setNotes(getAllNotes());
-  }
+  if (!notes) return "Loading...";
 
   return (
     <div className="container">

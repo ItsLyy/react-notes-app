@@ -1,82 +1,56 @@
-import React from "react";
+import { useContext, useState } from "react";
 import Checklist from "../../components/icons/Checklist";
-import { addNote } from "../../utils/local-data";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { addNote } from "../../utils/network-data";
+import useInput from "../../hooks/useInput";
+import { LanguageContext } from "../../contexts/LanguageContext";
+import {
+  LANG_ADD_NOTES,
+  LANG_CONFIRMATION,
+} from "../../utils/language-contants";
 
-class NoteAdd extends React.Component {
-  constructor(props) {
-    super(props);
+function NoteAdd() {
+  const [title, setTitle] = useInput("");
+  const [body, setBody] = useState("");
 
-    this.state = {
-      input: {
-        title: "",
-        body: "",
-      },
-    };
+  const { language } = useContext(LanguageContext);
 
-    this.onTitleInputHandler = this.onTitleInputHandler.bind(this);
-    this.onBodyInputHandler = this.onBodyInputHandler.bind(this);
-  }
-
-  onTitleInputHandler(e) {
-    this.setState((prevState) => {
-      return {
-        input: {
-          ...prevState.input,
-          title: e.target.value,
-        },
-      };
-    });
-  }
-
-  onBodyInputHandler(e) {
+  function onBodyInputHandler(e) {
     e.preventDefault();
-    this.setState((prevState) => {
-      return {
-        input: {
-          ...prevState.input,
-          body: e.target.innerText,
-        },
-      };
-    });
+    setBody(e.target.innerText);
   }
 
-  render() {
-    return (
-      <section id="notes-create">
-        <div className="container">
-          <input
-            type="text"
-            name="title"
-            id="title"
-            className="input__title"
-            onChange={this.onTitleInputHandler}
-            value={this.state.title}
-            placeholder="Title"
-          />
-          <div
-            data-placeholder="Description..."
-            onInput={this.onBodyInputHandler}
-            className="input__body"
-            contentEditable
-          />
-          <NoteAction
-            title={this.state.input.title}
-            body={this.state.input.body}
-          />
-        </div>
-      </section>
-    );
-  }
+  return (
+    <section id="notes-create">
+      <div className="container">
+        <input
+          type="text"
+          name="title"
+          id="title"
+          className="input__title"
+          onChange={setTitle}
+          value={title}
+          placeholder={LANG_ADD_NOTES[language].title}
+        />
+        <div
+          data-placeholder={LANG_ADD_NOTES[language].description}
+          onInput={onBodyInputHandler}
+          className="input__body"
+          contentEditable
+        />
+        <NoteAction title={title} body={body} lang={language} />
+      </div>
+    </section>
+  );
 }
 
-const NoteAction = ({ title, body }) => {
+const NoteAction = ({ title, body, lang }) => {
   const navigate = useNavigate();
 
-  const onAddNoteHandler = () => {
-    if (confirm("Are you sure?")) {
-      addNote({ title, body });
+  const onAddNoteHandler = async () => {
+    if (confirm(LANG_CONFIRMATION[lang])) {
+      await addNote({ title, body });
       navigate("/");
     }
   };
@@ -92,6 +66,7 @@ const NoteAction = ({ title, body }) => {
 NoteAction.propTypes = {
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
+  lang: PropTypes.string.isRequired,
 };
 
 export default NoteAdd;

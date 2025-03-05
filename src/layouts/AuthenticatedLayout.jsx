@@ -1,8 +1,17 @@
 import PropTypes from "prop-types";
 import Navbar from "../components/Navbar";
-import { useCallback, useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 
-function DefaultLayout({ children }) {
+function AuthenticatedLayout() {
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate("/login");
+  }
+
   const handleKeyPress = useCallback((event) => {
     if (event.ctrlKey && event.key === "k") {
       event.preventDefault();
@@ -17,16 +26,19 @@ function DefaultLayout({ children }) {
       document.removeEventListener("keydown", handleKeyPress);
     };
   }, [handleKeyPress]);
+
   return (
     <>
       <Navbar />
-      <main>{children}</main>
+      <main>
+        <Outlet />
+      </main>
     </>
   );
 }
 
-DefaultLayout.propTypes = {
+AuthenticatedLayout.propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-export default DefaultLayout;
+export default AuthenticatedLayout;

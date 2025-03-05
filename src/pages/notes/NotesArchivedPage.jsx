@@ -1,47 +1,38 @@
-import React from "react";
 import NotesEmpty from "../../components/NotesEmpty";
 import Card from "../../components/Card";
-import { getArchivedNotes, unarchiveNote } from "../../utils/local-data";
+import useArchivedNotes from "../../hooks/useArchivedNotes";
+import LoadingPage from "../LoadingPage";
 
-class NotesArchivedPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      notes: getArchivedNotes(),
-    };
-    this.onUnarchiveHandler = this.onUnarchiveHandler.bind(this);
+function NotesArchivedPage() {
+  const [notes, unArchivedHandler] = useArchivedNotes();
+
+  if (!notes) {
+    return <LoadingPage />;
   }
 
-  onUnarchiveHandler(id) {
-    unarchiveNote(id);
-    this.setState({ notes: getArchivedNotes() });
-  }
-
-  render() {
-    return (
-      <section id="archived">
-        <div className="container">
-          {this.state.notes.length > 0 ? (
-            <div className="card__group">
-              {this.state.notes.map((note) => (
-                <Card
-                  key={note.id}
-                  id={note.id}
-                  title={note.title}
-                  description={note.body}
-                  createdAt={note.createdAt}
-                  archived={note.archived}
-                  archivedHandler={this.onUnarchiveHandler}
-                />
-              ))}
-            </div>
-          ) : (
-            <NotesEmpty />
-          )}
-        </div>
-      </section>
-    );
-  }
+  return (
+    <section id="archived">
+      <div className="container">
+        {notes.length > 0 ? (
+          <div className="card__group">
+            {notes.map((note) => (
+              <Card
+                key={note.id}
+                id={note.id}
+                title={note.title}
+                description={note.body}
+                createdAt={note.createdAt}
+                archived={note.archived}
+                archivedHandler={unArchivedHandler}
+              />
+            ))}
+          </div>
+        ) : (
+          <NotesEmpty />
+        )}
+      </div>
+    </section>
+  );
 }
 
 export default NotesArchivedPage;

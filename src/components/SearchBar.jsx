@@ -1,49 +1,10 @@
-import { useEffect, useState } from "react";
-import {
-  createSearchParams,
-  Link,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
-import { getAllNotes } from "../utils/local-data";
+import { LANG_NAVBAR } from "../utils/language-contants";
+import PropTypes from "prop-types";
+import useSearchNotes from "../hooks/useSearchNotes";
+import { Link } from "react-router-dom";
 
-export default function SearchBar() {
-  const [notes, setNotes] = useState(getAllNotes());
-  const [keyword, setKeyword] = useState("");
-  const [search, setSearch] = useSearchParams({});
-
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
-
-  const onKeywordHandler = (e) => {
-    setNotes(getAllNotes());
-    if (pathname === "/notes/search") {
-      setSearch({
-        keyword: e.target.value,
-      });
-    }
-    setKeyword(e.target.value);
-  };
-
-  const onEnterHandler = (e) => {
-    e.preventDefault();
-    console.log(search);
-    if (pathname !== "/notes/search") {
-      navigate({
-        pathname: "notes/search",
-        search: createSearchParams({
-          keyword: keyword,
-        }).toString(),
-      });
-    }
-
-    setKeyword("");
-  };
-
-  useEffect(() => {
-    setKeyword("");
-  }, [navigate]);
+export default function SearchBar({ lang }) {
+  const { notes, keyword, onKeywordHandler, onEnterHandler } = useSearchNotes();
 
   return (
     <form className="search-bar" onSubmit={onEnterHandler}>
@@ -52,12 +13,12 @@ export default function SearchBar() {
         name="searchbar"
         id="searchbar"
         autoComplete="notes name"
-        placeholder="Search notes name"
+        placeholder={LANG_NAVBAR[lang].searchPlaceholder}
         onChange={onKeywordHandler}
         value={keyword}
       />
       <span className="search-bar__key">CTRL + K</span>
-      {notes.filter((note) =>
+      {notes?.filter((note) =>
         keyword
           ? note.title.toLowerCase().includes(keyword.toLowerCase())
           : false
@@ -65,7 +26,7 @@ export default function SearchBar() {
         <div className="result__container">
           <ul className="result__list">
             {notes
-              .filter((note) =>
+              ?.filter((note) =>
                 keyword
                   ? note.title.toLowerCase().includes(keyword.toLowerCase())
                   : false
@@ -83,3 +44,7 @@ export default function SearchBar() {
     </form>
   );
 }
+
+SearchBar.propTypes = {
+  lang: PropTypes.string.isRequired,
+};
